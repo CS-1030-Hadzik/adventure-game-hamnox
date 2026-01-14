@@ -2,6 +2,7 @@
 # adventure_game
 This is the starter code that we will be using to learn python, git, and vscode
 
-## This game was created by Scott Hadzik
+## This game was created by Melanie Heisey
+She's cool. You should definitely be her friend.
 
-## This is a text based adventure game
+## This is a text-based adventure game where the player makes choices to navigate through a mysterious forest.
