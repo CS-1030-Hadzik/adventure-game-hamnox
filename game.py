@@ -145,7 +145,7 @@ while True:
             print(f"Back to the start you go!") 
             player.go("start")
         elif decision == "1" and player.has_map:
-            print(f"With the help of the map, you find the hidden valley.")
+            print(f"With the help of the map, you find the hidden valley. It is filled with luscious plant life.")
             if not player.has_herbs:
                 player.add_item("rare herbs")
             player.go("valley")
