@@ -29,6 +29,9 @@ class Player:
             print("You have lost all your health. Game over!")
             self.quit()
 
+    def print_health(self):
+        print(f"Health: {self.health}")
+
     def has_won(self):
         return self.has_treasure and self.has_herbs
     
@@ -282,6 +285,8 @@ while True:
         print(f"You seem to be lost, {player1.name}.")
 
     if player1.has_won():
-        print(f"Congratulations, {player1.name}! You have found all the items.You win!")
+        print(f"Congratulations, {player1.name}! You have found all the items. You win!")
         break
+
+    player1.print_health()
 
