@@ -85,7 +85,7 @@ Two paths lie ahead, leading deeper into the unknown...
 (Type 1, 2, 3, i for inventory, q to quit)
 """
     print(starting_area)
-    while True:
+    while player.location == "start":
         decision = input("What would you like to do?: ").lower() # Normalize the answer.
         print("")
 
@@ -114,9 +114,11 @@ Two paths lie ahead, leading deeper into the unknown...
                 break
             else:
                 print(player.name + ", you decide to wait. Perhaps courage will find you later.") # concatenation example
+                player.lose_health()
                 continue
         else:
             print("Confused, you stand still, unsure of what to do.")
+            player.lose_health()
 
 
 def explore_woods(player: Player):
@@ -127,7 +129,7 @@ You are in the woods. According to the legends, there is hidden valley in these 
 (Type 1, 2, i for inventory, q to quit)
 """
     print(woods_area)
-    while True:
+    while player.location == "woods":
         decision = input("What would you like to do?: ").lower() # Normalize the answer.
         print("")
 
@@ -149,8 +151,10 @@ You are in the woods. According to the legends, there is hidden valley in these 
             break
         elif decision == "1":
             print("You cannot find the valley :(")
+            player.lose_health()
         else:
             print("Confused, you stand still, unsure of what to do.")
+            player.lose_health()
 
 
 def explore_mountain(player: Player):
@@ -161,7 +165,7 @@ You are in the mountain pass. There seems to be a cave over yonder.
 (Type 1, 2, i for inventory, q to quit)
 """ 
     print(mountain_area)
-    while True:
+    while player.location == "mountain":
         decision = input("What would you like to do?: ").lower() # Normalize the answer.
         print("")
         if decision == "i":
@@ -180,6 +184,7 @@ You are in the mountain pass. There seems to be a cave over yonder.
             break
         else:
             print("Confused, you stand still, unsure of what to do.")
+            player.lose_health()
     
 
 def explore_cave(player: Player):
@@ -190,7 +195,7 @@ You are in the entrance to the cave. It is dark and damp.
 (Type 1, 2, i for inventory, q to quit)
 """ 
     print(cave_area)
-    while True:
+    while player.location == "cave":
         decision = input("What would you like to do?: ").lower() # Normalize the answer.
         print("")
         if decision == "i":
@@ -212,12 +217,15 @@ You open it and find a trove of gold and jewels. You head back to the start of t
                 player.add_item("treasure")
             else:
                 print("You already checked there, no point in going again.")
+                player.lose_health()
             player.go("cave")
             break
         elif decision == "1":
             print("It's too dark! You cannot see anything.")
+            player.lose_health()
         else:
             print("Confused, you stand still, unsure of what to do.")
+            player.lose_health()
 
 def explore_valley(player: Player):
     valley_area = """You are in the valley now. It is beautiful here.
@@ -226,7 +234,7 @@ def explore_valley(player: Player):
     """
     print(valley_area)
 
-    while True:
+    while player.location == "valley":
         decision = input("What would you like to do?: ").lower() # Normalize the answer.
         print("")
         if decision == "i":
@@ -241,7 +249,7 @@ def explore_valley(player: Player):
             break
         else:
             print("Confused, you stand still, unsure of what to do.")
-            # player.lose_health()
+            player.lose_health()
 
 player1 = welcome_player()
 prev_location = ""
