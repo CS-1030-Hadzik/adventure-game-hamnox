@@ -22,7 +22,7 @@ class Player:
         self.has_herbs = False
         self.health = 100
 
-    def lose_health(self):
+    def stay_still(self):
         self.health -= 10
         print(f"You lost some health. Current health: {self.health}")
         if self.health <= 0:
@@ -117,11 +117,11 @@ Two paths lie ahead, leading deeper into the unknown...
                 break
             else:
                 print(player.name + ", you decide to wait. Perhaps courage will find you later.") # concatenation example
-                player.lose_health()
+                player.stay_still()
                 continue
         else:
             print("Confused, you stand still, unsure of what to do.")
-            player.lose_health()
+            player.stay_still()
 
 
 def explore_woods(player: Player):
@@ -154,10 +154,10 @@ You are in the woods. According to the legends, there is hidden valley in these 
             break
         elif decision == "1":
             print("You cannot find the valley :(")
-            player.lose_health()
+            player.stay_still()
         else:
             print("Confused, you stand still, unsure of what to do.")
-            player.lose_health()
+            player.stay_still()
 
 
 def explore_mountain(player: Player):
@@ -187,7 +187,7 @@ You are in the mountain pass. There seems to be a cave over yonder.
             break
         else:
             print("Confused, you stand still, unsure of what to do.")
-            player.lose_health()
+            player.stay_still()
     
 
 def explore_cave(player: Player):
@@ -220,15 +220,15 @@ You open it and find a trove of gold and jewels. You head back to the start of t
                 player.add_item("treasure")
             else:
                 print("You already checked there, no point in going again.")
-                player.lose_health()
+                player.stay_still()
             player.go("cave")
             break
         elif decision == "1":
             print("It's too dark! You cannot see anything.")
-            player.lose_health()
+            player.stay_still()
         else:
             print("Confused, you stand still, unsure of what to do.")
-            player.lose_health()
+            player.stay_still()
 
 def explore_valley(player: Player):
     valley_area = """You are in the valley now. It is beautiful here.
@@ -252,7 +252,7 @@ def explore_valley(player: Player):
             break
         else:
             print("Confused, you stand still, unsure of what to do.")
-            player.lose_health()
+            player.stay_still()
 
 player1 = welcome_player()
 prev_location = ""
