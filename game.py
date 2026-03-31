@@ -20,6 +20,17 @@ class Player:
         self.has_lantern = False
         self.has_treasure = False
         self.has_herbs = False
+        self.health = 100
+
+    def lose_health(self):
+        self.health -= 10
+        print(f"You lost some health. Current health: {self.health}")
+        if self.health <= 0:
+            print("You have lost all your health. Game over!")
+            self.quit()
+
+    def has_won(self):
+        return self.has_treasure and self.has_herbs
     
     def greet(self):
         print(f"Welcome, {self.name}! Your journey begins now.")
@@ -95,7 +106,7 @@ Two paths lie ahead, leading deeper into the unknown...
                 break
             elif decision == "2":
                 if not player.has_map:
-                    print(f"Clever choice {player1.name}! You grab a map and venture forward into the mountain pass.")
+                    print(f"Clever choice {player.name}! You grab a map and venture forward into the mountain pass.")
                     player.add_item("map")
                 else:
                     print(f"You venture forward into the mountain pass.")
@@ -128,13 +139,13 @@ You are in the woods. According to the legends, there is hidden valley in these 
             break
         if decision == "2":
             print(f"Back to the start you go!") 
-            player1.go("start")
+            player.go("start")
             break
-        elif decision == "1" and player1.has_map:
+        elif decision == "1" and player.has_map:
             print(f"With the help of the map, you find the hidden valley. It is filled with luscious plant life.")
-            if not player1.has_herbs:
-                player1.add_item("rare herbs")
-            player1.go("valley")
+            if not player.has_herbs:
+                player.add_item("rare herbs")
+            player.go("valley")
             break
         elif decision == "1":
             print("You cannot find the valley :(")
@@ -161,11 +172,11 @@ You are in the mountain pass. There seems to be a cave over yonder.
             break
         if decision == "2":
             print(f"You go back.")
-            player1.go("start")
+            player.go("start")
             break
         elif decision == "1":
             print(f"You venture towards the cave.")
-            player1.go("cave")
+            player.go("cave")
             break
         else:
             print("Confused, you stand still, unsure of what to do.")
@@ -190,18 +201,18 @@ You are in the entrance to the cave. It is dark and damp.
             break
         if decision == "2":
             print(f"You go back.")
-            player1.go("mountain")
+            player.go("mountain")
             break
-        elif decision == "1" and player1.has_lantern:
+        elif decision == "1" and player.has_lantern:
             print("""You venture further into the cave.
 The light from your lantern reveals a hidden treasure chest!
 You open it and find a trove of gold and jewels. You head back to the start of the cave.
 """)
-            if not player1.has_treasure:
-                player1.add_item("treasure")
+            if not player.has_treasure:
+                player.add_item("treasure")
             else:
                 print("You already checked there, no point in going again.")
-            player1.go("cave")
+            player.go("cave")
             break
         elif decision == "1":
             print("It's too dark! You cannot see anything.")
@@ -226,10 +237,11 @@ def explore_valley(player: Player):
             break
         elif decision == "1":
             print(f"You go back.")
-            player1.go("woods")
+            player.go("woods")
             break
         else:
             print("Confused, you stand still, unsure of what to do.")
+            # player.lose_health()
 
 player1 = welcome_player()
 prev_location = ""
@@ -261,5 +273,7 @@ while True:
     else:
         print(f"You seem to be lost, {player1.name}.")
 
-
+    if player1.has_won():
+        print(f"Congratulations, {player1.name}! You have found all the items.You win!")
+        break
 
