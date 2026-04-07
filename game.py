@@ -161,7 +161,7 @@ You are in the entrance to the cave. It is dark and damp.
             break
         if decision == "2":
             print(f"You go back.")
-            player.go("mountain")
+            player.go("start")
         elif decision == "1" and player.has_lantern:
             if not player.has_treasure:                
                 print("""You venture further into the cave.
