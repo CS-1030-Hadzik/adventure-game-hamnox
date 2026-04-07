@@ -31,8 +31,9 @@ The sound of rustling leaves fills the air.
 Two paths lie ahead, leading deeper into the unknown...
     1. Take the left path into the dark woods.
     2. Take the right path toward the mountain pass.
-    3. Stay where you are.
-(Type 1, 2, 3, i for inventory, q to quit)
+    3. Investigate the cave nearby.
+    4. Wait and see if anything happens.
+(Type 1, 2, 3, 4, i for inventory, q to quit)
 """
     print(starting_area)
     while player.location == "start":
@@ -45,7 +46,7 @@ Two paths lie ahead, leading deeper into the unknown...
         elif decision == "q":
             player.quit()
             break
-        elif decision in ["1", "2", "3"]:
+        elif decision in ["1", "2", "3", "4"]:
             if decision == "1":
                 if not player.has_lantern:
                     print(f"Brave choice, {player.name}! You grab a lantern and venture forward into the dark woods.")
@@ -62,6 +63,13 @@ Two paths lie ahead, leading deeper into the unknown...
                     print(f"You venture forward into the mountain pass.")
                 player.go("mountain")
                 break
+            elif decision == "3":
+                if player.has_treasure:
+                    print("You already checked there, no point in going again.")
+                    player.stay_still()
+                else:
+                    print(f"You venture towards the cave.")
+                    player.go("cave")
             else:
                 print(player.name + ", you decide to wait. Perhaps courage will find you later.") # concatenation example
                 player.stay_still()
@@ -73,8 +81,10 @@ Two paths lie ahead, leading deeper into the unknown...
 
 def explore_woods(player: Player):
     woods_area = """
-You are in the woods. According to the legends, there is hidden valley in these woods.
-    1. Search for the hidden valley.
+You are in the woods. The trees are tall and the canopy is thick,
+and the air is filled with the scent of pine and earth.
+There have been rumors of a hidden valley in these woods.
+    1. Look for the hidden valley.
     2. Go back.
 (Type 1, 2, i for inventory, q to quit)
 """
@@ -109,9 +119,8 @@ You are in the woods. According to the legends, there is hidden valley in these 
 
 def explore_mountain(player: Player):
     mountain_area = """
-You are in the mountain pass. There seems to be a cave over yonder.
-    1. Explore the cave.
-    2. Head back.
+You are in the mountain pass. The air is thin and the path is treacherous.
+    1. Head back.
 (Type 1, 2, i for inventory, q to quit)
 """ 
     print(mountain_area)
@@ -124,16 +133,10 @@ You are in the mountain pass. There seems to be a cave over yonder.
         elif decision == "q":
             player.quit()
             break
-        if decision == "2":
+        elif decision == "1":
             print(f"You go back.")
             player.go("start")
-        elif decision == "1":
-            if player.has_treasure:
-                print("You already checked there, no point in going again.")
-                player.stay_still()
-            else:
-                print(f"You venture towards the cave.")
-                player.go("cave")
+
         else:
             print("Confused, you stand still, unsure of what to do.")
             player.stay_still()
@@ -142,7 +145,7 @@ You are in the mountain pass. There seems to be a cave over yonder.
 def explore_cave(player: Player):
     cave_area = """
 You are in the entrance to the cave. It is dark and damp.
-    1. Explore deeper into the cave.
+    1. Explore inside the cave.
     2. Head back.
 (Type 1, 2, i for inventory, q to quit)
 """ 
